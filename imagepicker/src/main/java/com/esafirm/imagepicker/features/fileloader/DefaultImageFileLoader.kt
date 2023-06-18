@@ -178,7 +178,7 @@ class DefaultImageFileLoader(private val context: Context) : ImageFileLoader {
             val name = cursor.getString(cursor.getColumnIndex(Projection.DISPLAY_NAME.column))
             val type = cursor.getString(cursor.getColumnIndex(Projection.MIME_TYPE.column))
             val dateString = cursor.getString(cursor.getColumnIndex(Projection.DATE_MODIFIED.column))
-            val date = Date(dateString.toLong())
+            val date = dateString?.let { Date(dateString.toLong()) }
             val size = cursor.getLong(cursor.getColumnIndex(Projection.SIZE.column))
 
             return if (name != null) {
