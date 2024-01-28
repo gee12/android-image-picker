@@ -12,14 +12,14 @@ class DefaultValueComparison<T> : ValueComparison<T> {
 
 class SimpleDiffUtilCallBack<T>(
     private val areItemTheSame: ValueComparison<T> = DefaultValueComparison(),
-    private val areContentTheSame: ValueComparison<T> = DefaultValueComparison()
+    private val areContentTheSame: ValueComparison<T> = DefaultValueComparison(),
 ) : DiffUtil.ItemCallback<T>() {
 
-    override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
+    override fun areItemsTheSame(oldItem: T & Any, newItem: T & Any): Boolean {
         return areItemTheSame(oldItem, newItem)
     }
 
-    override fun areContentsTheSame(oldItem: T, newItem: T): Boolean {
+    override fun areContentsTheSame(oldItem: T & Any, newItem: T & Any): Boolean {
         return areContentTheSame(oldItem, newItem)
     }
 }
