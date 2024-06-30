@@ -78,6 +78,8 @@ class ImagePickerAdapter(
         }
 
         viewHolder.apply {
+            setIsRecyclable(false)
+
             if (isShowImageNames) {
                 nameView.text = image.name
                 bottomView.visibility = View.VISIBLE
@@ -100,14 +102,6 @@ class ImagePickerAdapter(
     }
 
     override fun getItemCount() = listDiffer.currentList.size
-
-    override fun getItemViewType(position: Int): Int {
-        return position
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
 
     fun setData(images: List<Image>, commitCallback: (() -> Unit)? = null) {
         listDiffer.submitList(images) {
