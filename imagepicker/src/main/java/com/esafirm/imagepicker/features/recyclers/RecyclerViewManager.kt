@@ -89,10 +89,14 @@ class RecyclerViewManager(
             isShowImageNames = config.isShowImageNames,
             itemClickListener = onImageClick
         )
-        folderAdapter = FolderPickerAdapter(context, imageLoader) {
-            foldersState = recyclerView.layoutManager?.onSaveInstanceState()
-            onFolderClick(it)
-        }
+        folderAdapter = FolderPickerAdapter(
+            context = context,
+            imageLoader = imageLoader,
+            folderClickListener = {
+                foldersState = recyclerView.layoutManager?.onSaveInstanceState()
+                onFolderClick(it)
+            },
+        )
     }
 
     private fun setItemDecoration(columns: Int) {
@@ -160,7 +164,7 @@ class RecyclerViewManager(
         recyclerView.adapter = imageAdapter
     }
 
-    fun setFolderAdapter(folders: List<Folder>?, commitCallback: (() -> Unit)? = null) {
+    fun setFolderAdapter(folders: List<Folder>, commitCallback: (() -> Unit)? = null) {
         folderAdapter.setData(folders)
         setItemDecoration(folderColumns)
         recyclerView.adapter = folderAdapter

@@ -31,7 +31,11 @@ class FolderPickerAdapter(
     override fun onBindViewHolder(holder: FolderViewHolder, position: Int) {
         val folder = folders.getOrNull(position) ?: return
 
-        imageLoader.loadImage(folder.images.first(), holder.image, ImageType.FOLDER)
+        imageLoader.loadImage(
+            image = folder.images.first(),
+            imageView = holder.image,
+            imageType = ImageType.FOLDER,
+        )
 
         holder.apply {
             name.text = folder.folderName
@@ -40,12 +44,9 @@ class FolderPickerAdapter(
         }
     }
 
-    fun setData(folders: List<Folder>?) {
-        folders?.let {
-            this.folders.clear()
-            this.folders.addAll(folders)
-        }
-
+    fun setData(folders: List<Folder>) {
+        this.folders.clear()
+        this.folders.addAll(folders)
         notifyDataSetChanged()
     }
 
